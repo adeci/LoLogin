@@ -1,5 +1,7 @@
 # LoLogin - Account Manager for League of Legends v2.0
 
+![Example Image](/example.JPG)
+
 ## Instructions
 1. Download .zip
 2. Extract to desired destination (documents, program files x86, etc)
