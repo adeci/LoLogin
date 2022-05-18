@@ -12,4 +12,3 @@
 - Added settings menu to add/delete accounts from inside application
 - No longer need to interact with accounts.csv
 - Calls Riot Client to front and waits a second before credential input
-- 
