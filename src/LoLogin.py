@@ -4,7 +4,10 @@ from tkinter import ttk
 from pynput.keyboard import Key, Controller
 from functools import partial
 import psutil
+import time
+import threading
 from ctypes import windll
+import pygetwindow as gw
 
 keyboard = Controller()
 
@@ -30,10 +33,22 @@ def account(i):
     root.destroy()
     username = user[i]
     password = passw[i]
+    t1=threading.Thread(target=startProgram)
+    t1.daemon = True
+    t1.start()
 
-    subprocess.call(['C:\Riot Games\League of Legends\LeagueClient.exe'])
     while True:
-        if checkIfProcessRunning('RiotClient'):
+        print('searching')
+        if checkIfProcessRunning('RiotClientUx'):
+            
+            #wait a few seconds, if process tries to bring window to front
+            #that is not initialized yet program will crash
+            time.sleep(3)
+            #bring window to front
+            win = gw.getWindowsWithTitle('Riot Client Main')[0]
+            win.activate()
+
+            #type creds
             keyboard.type(username)
             keyboard.press(Key.tab)
             keyboard.release(Key.tab)
@@ -41,6 +56,10 @@ def account(i):
             keyboard.press(Key.enter)
             keyboard.release(Key.enter)
             break
+
+
+def startProgram():
+    subprocess.call(['C:\Riot Games\League of Legends\LeagueClient.exe'])
 
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():
